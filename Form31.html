@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document31</title>
+    <!-- <style>
+        #users{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        #user-details{
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            height: 100%;
+            padding: 5px;
+            margin: 5px;
+            background-color: aqua;
+            
+        }
+    </style> -->
+</head>
+    <body>
+        <form id="form">
+            <input type="text" id="name" placeholder="UserName:"/><br>
+            <input type="email" id="email" placeholder="Enter Email:"/><br>
+            <!-- <input type="number" id="id" placeholder="Id"/> -->
+            <input type="submit" value="submit">
+        </form>
+
+        <section>
+            <div style="text-align: center;margin: 20px 0px;text-decoration: underline;">JSON Placeholders Users</div>
+        
+            <!-- <div id="user-details" style="background-color:red">
+                <h2 id="name">Name : </h2>
+                <h4 id="email">Email: </h4>
+                <h4 id="mobile">Mobile: </h4>
+                <h4 id="company">Compnay: </h4>
+            </div> -->
+
+            <p id="demo1"></p>
+            <p id="demo2"></p>
+        
+            <div id="users" >
+                <!-- hello -->
+            </div>
+        </section>
+
+
+    </body>
+    <script>
+        document.getElementById('form').addEventListener("click",function(e){
+            
+            e.preventDefault();
+
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+
+
+            // if(name==''){
+            //     alert('Enter a valid username:')
+            // }
+
+            const url = 'https://jsonplaceholder.typicode.com/users';
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState== 4 && xhr.status== 201){
+                    let result = JSON.parse(this.responseText);
+                    
+                    console.log(result.userName);
+                    console.log(result.email);
+
+                    document.getElementById("demo1").innerHTML = result.userName;
+                    document.getElementById("demo2").innerHTML = result.email;
+                };
+            }
+            const body = JSON.stringify(
+                {
+                     userName:name,
+                     email:email 
+                });
+
+            xhr.send(body);
+        
+        })
+    </script>
+
+</html>
+
+
+
+
+
+<!-- //  fetch("https://jsonplaceholder.typicode.com/posts",{
+    //      method:'POST',
+        //  body:JSON.stringify({
+        //      title:name,
+        //      body:email,
+        //      id:id
+        //  }),
+        //  headers :{
+        //      "Content-type" : "application/json; charset=UTF-8"
+        //  }
+    //  })
+
+    //  .then(function(response){
+    //      return response.json()
+    //  })
+    //  .then(function(data){
+    //      console.log(data);
+    //  }) -->
